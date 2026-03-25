@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Salles</h2>
+
+{% for salle in salles %}
+    <p>{{ salle.nom }} - {{ salle.nombre_places }} places</p>
+{% endfor %}
+
+{% endblock %}

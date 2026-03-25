@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Ajouter un film</h2>
+
+<form method="post">
+    {% csrf_token %}
+
+    <p>Titre: <input type="text" name="titre"></p>
+    <p>Description: <textarea name="description"></textarea></p>
+    <p>Catégorie: <input type="text" name="categorie"></p>
+
+    <button type="submit">Créer</button>
+</form>
+
+{% endblock %}

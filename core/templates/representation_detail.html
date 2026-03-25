@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Détails de la représentation</h2>
+
+<hr>
+
+<p><strong>Film :</strong> {{ rep.film.titre }}</p>
+<p><strong>Description :</strong> {{ rep.film.description }}</p>
+
+<p><strong>Salle :</strong> {{ rep.salle.nom }}</p>
+<p><strong>Capacité :</strong> {{ rep.salle.nombre_places }}</p>
+
+<p><strong>Date :</strong> {{ rep.date_heure }}</p>
+
+<p><strong>Places restantes :</strong> {{ rep.places_restantes }}</p>
+
+<h3>Technologies film :</h3>
+<ul>
+{% for tech in rep.film.technologies.all %}
+    <li>{{ tech.nom }}</li>
+{% endfor %}
+</ul>
+
+<h3>Technologies salle :</h3>
+<ul>
+{% for tech in rep.salle.technologies.all %}
+    <li>{{ tech.nom }}</li>
+{% endfor %}
+</ul>
+
+<hr>
+
+<a href="/reserver/{{ rep.id }}">🎫 Réserver</a>
+
+{% endblock %}

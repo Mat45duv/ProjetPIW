@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Réserver des billets</h2>
+
+<p><strong>Film :</strong> {{ rep.film.titre }}</p>
+<p><strong>Places restantes :</strong> {{ rep.places_restantes }}</p>
+
+<hr>
+
+{% if form.errors %}
+    <p style="color:red;">❌ Erreur lors de la réservation :</p>
+    {{ form.errors }}
+{% endif %}
+
+<form method="post">
+    {% csrf_token %}
+
+    <p>
+        Nom :
+        {{ form.nom_client }}
+    </p>
+
+    <p>
+        Nombre de billets :
+        {{ form.nombre_billets }}
+    </p>
+
+    <button type="submit">Confirmer</button>
+</form>
+
+<br>
+<a href="/films/">Retour</a>
+
+{% endblock %}

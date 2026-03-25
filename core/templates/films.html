@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Liste des films</h2>
+
+{% if films %}
+    {% for film in films %}
+        <hr>
+        <h3>{{ film.titre }}</h3>
+        <p><strong>Catégorie :</strong> {{ film.categorie }}</p>
+        <p>{{ film.description }}</p>
+
+        <p><strong>Technologies :</strong>
+            {% for tech in film.technologies.all %}
+                {{ tech.nom }}
+            {% endfor %}
+        </p>
+
+        <a href="/film/{{ film.id }}">Voir les représentations</a>
+    {% endfor %}
+{% else %}
+    <p>Aucun film disponible</p>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Représentations</h2>
+
+{% for rep in reps %}
+    <p>
+        {{ rep.film.titre }} |
+        {{ rep.salle.nom }} |
+        {{ rep.date_heure }}
+    </p>
+{% endfor %}
+
+{% endblock %}

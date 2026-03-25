@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Représentations</h2>
+
+{% if reps %}
+    {% for rep in reps %}
+        <hr>
+        <p><strong>Film :</strong> {{ rep.film.titre }}</p>
+        <p><strong>Salle :</strong> {{ rep.salle.nom }}</p>
+        <p><strong>Date :</strong> {{ rep.date_heure }}</p>
+
+        <p><strong>Places restantes :</strong> {{ rep.places_restantes }}</p>
+
+        <a href="/representation/{{ rep.id }}">Voir détails</a>
+    {% endfor %}
+{% else %}
+    <p>Aucune représentation</p>
+{% endif %}
+
+{% endblock %}

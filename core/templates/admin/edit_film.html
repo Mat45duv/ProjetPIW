@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Modifier film</h2>
+
+<form method="post">
+    {% csrf_token %}
+
+    <p>Titre: <input type="text" name="titre" value="{{ film.titre }}"></p>
+    <p>Description: <textarea name="description">{{ film.description }}</textarea></p>
+    <p>Catégorie: <input type="text" name="categorie" value="{{ film.categorie }}"></p>
+
+    <button type="submit">Sauvegarder</button>
+</form>
+
+{% endblock %}
