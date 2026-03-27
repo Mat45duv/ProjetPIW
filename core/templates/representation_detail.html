@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block title %}Détail de la représentation{% endblock %}
+{% block content %}
+<div class="breadcrumb">
+    <a href="/films/">Films</a>
+    <span class="sep">›</span>
+    <a href="/film/{{ rep.film.id }}/">{{ rep.film.titre }}</a>
+    <span class="sep">›</span>
+    <span class="current">Détail</span>
+</div>
+
+<h1 class="page-title">{{ rep.film.titre }}</h1>
+<p class="page-subtitle">Séance du {{ rep.date_heure|date:"l d F Y à H:i" }}</p>
+<div class="title-accent"></div>
+
+<div class="detail-grid">
+    <div>
+        <div class="card" style="margin-bottom:1.5rem;">
+            <div class="detail-section">
+                <h3>🎬 Informations sur le film</h3>
+                <div class="detail-row"><span class="label">Titre</span><span class="value">{{ rep.film.titre }}</span></div>
+                <div class="detail-row"><span class="label">Catégorie</span><span class="value"><span class="badge badge-cat">{{ rep.film.categorie }}</span></span></div>
+                <div class="detail-row" style="border:none; padding-top:0.8rem;"><span class="label">Description</span></div>
+                <p style="color:var(--texte-dim); font-size:0.9rem; line-height:1.7; margin-top:0.5rem;">{{ rep.film.description }}</p>
+                <div style="margin-top:1rem;">
+                    {% for tech in rep.film.technologies.all %}
+                        <span class="badge badge-tech">{{ tech.nom }}</span>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <div class="card" style="margin-bottom:1.5rem;">
+            <div class="detail-section">
+                <h3>🏛️ Informations sur la salle</h3>
+                <div class="detail-row"><span class="label">Salle</span><span class="value">{{ rep.salle.nom }}</span></div>
+                <div class="detail-row"><span class="label">Capacité totale</span><span class="value">{{ rep.salle.nombre_places }} places</span></div>
+                <div class="detail-row"><span class="label">Places restantes</span>
+                    <span class="value">
+                        {% if rep.places_restantes > 0 %}
+                            <span class="badge badge-places">{{ rep.places_restantes }} disponibles</span>
+                        {% else %}
+                            <span class="badge badge-full">Complet</span>
+                        {% endif %}
+                    </span>
+                </div>
+                <div class="detail-row" style="border:none;"><span class="label">Technologies</span></div>
+                <div style="margin-top:0.5rem;">
+                    {% for tech in rep.salle.technologies.all %}
+                        <span class="badge badge-tech">{{ tech.nom }}</span>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="detail-section">
+                <h3>🕐 Horaire</h3>
+                <div class="detail-row"><span class="label">Date</span><span class="value">{{ rep.date_heure|date:"d F Y" }}</span></div>
+                <div class="detail-row" style="border:none;"><span class="label">Heure</span><span class="value">{{ rep.date_heure|date:"H:i" }}</span></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div style="margin-top:2rem; display:flex; gap:1rem;">
+    {% if rep.places_restantes > 0 %}
+        <a href="/reserver/{{ rep.id }}/" class="btn btn-gold">🎫 Réserver des billets</a>
+    {% else %}
+        <span class="btn btn-danger" style="cursor:default;">Représentation complète</span>
+    {% endif %}
+    <a href="/film/{{ rep.film.id }}/" class="btn btn-secondary">← Autres séances</a>
+</div>
+{% endblock %}

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}CinéMax{% endblock %} | CinéMax</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --noir: #0a0a0f;
+            --rouge: #c0392b;
+            --rouge-vif: #e74c3c;
+            --or: #d4a017;
+            --or-clair: #f0c040;
+            --gris-fonce: #141420;
+            --gris-moyen: #1e1e2e;
+            --gris-card: #252535;
+            --texte: #e8e8f0;
+            --texte-dim: #9090a8;
+            --blanc: #ffffff;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Raleway', sans-serif; background-color: var(--noir); color: var(--texte); min-height: 100vh; display: flex; flex-direction: column; }
+        header { background: linear-gradient(135deg, var(--gris-fonce) 0%, #1a0a0a 100%); border-bottom: 2px solid var(--rouge); padding: 0 2rem; position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 30px rgba(192,57,43,0.3); }
+        .header-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 70px; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 900; color: var(--blanc); text-decoration: none; letter-spacing: 2px; }
+        .logo span { color: var(--rouge-vif); }
+        nav { display: flex; gap: 0.3rem; align-items: center; }
+        nav a { color: var(--texte-dim); text-decoration: none; padding: 0.5rem 1.1rem; font-size: 0.85rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; border-radius: 4px; transition: all 0.2s; }
+        nav a:hover { color: var(--blanc); background: rgba(192,57,43,0.2); }
+        .nav-admin { color: var(--or) !important; border: 1px solid rgba(212,160,23,0.3); }
+        main { flex: 1; max-width: 1200px; margin: 0 auto; width: 100%; padding: 2.5rem 2rem; }
+        .page-title { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 700; color: var(--blanc); margin-bottom: 0.4rem; }
+        .page-subtitle { color: var(--texte-dim); font-size: 0.95rem; margin-bottom: 0.8rem; font-weight: 300; }
+        .title-accent { width: 60px; height: 3px; background: linear-gradient(90deg, var(--rouge), var(--or)); border-radius: 2px; margin-bottom: 2rem; }
+        .card { background: var(--gris-card); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; padding: 1.8rem; transition: transform 0.2s, box-shadow 0.2s; }
+        .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; }
+        .badge { display: inline-block; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; }
+        .badge-tech { background: rgba(212,160,23,0.15); color: var(--or-clair); border: 1px solid rgba(212,160,23,0.3); margin: 0.2rem; }
+        .badge-cat { background: rgba(192,57,43,0.2); color: var(--rouge-vif); border: 1px solid rgba(192,57,43,0.4); }
+        .badge-places { background: rgba(46,204,113,0.15); color: #2ecc71; border: 1px solid rgba(46,204,113,0.3); }
+        .badge-full { background: rgba(231,76,60,0.15); color: var(--rouge-vif); border: 1px solid rgba(231,76,60,0.3); }
+        .btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.65rem 1.4rem; border-radius: 6px; font-family: 'Raleway', sans-serif; font-weight: 600; font-size: 0.85rem; letter-spacing: 0.5px; text-decoration: none; border: none; cursor: pointer; transition: all 0.2s; }
+        .btn-primary { background: linear-gradient(135deg, var(--rouge), #922b21); color: white; }
+        .btn-primary:hover { background: linear-gradient(135deg, var(--rouge-vif), var(--rouge)); transform: translateY(-1px); }
+        .btn-secondary { background: rgba(255,255,255,0.07); color: var(--texte); border: 1px solid rgba(255,255,255,0.12); }
+        .btn-secondary:hover { background: rgba(255,255,255,0.12); }
+        .btn-danger { background: rgba(192,57,43,0.15); color: var(--rouge-vif); border: 1px solid rgba(192,57,43,0.3); }
+        .btn-danger:hover { background: rgba(192,57,43,0.3); }
+        .btn-gold { background: linear-gradient(135deg, var(--or), #b8860b); color: var(--noir); font-weight: 700; }
+        .btn-gold:hover { background: linear-gradient(135deg, var(--or-clair), var(--or)); transform: translateY(-1px); }
+        .btn-sm { padding: 0.4rem 0.9rem; font-size: 0.8rem; }
+        .btn-green { background: rgba(46,204,113,0.15); color: #2ecc71; border: 1px solid rgba(46,204,113,0.3); }
+        .btn-green:hover { background: rgba(46,204,113,0.3); }
+        .form-card { background: var(--gris-card); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; padding: 2rem; max-width: 650px; }
+        .form-group { margin-bottom: 1.4rem; }
+        .form-group label { display: block; margin-bottom: 0.5rem; font-size: 0.82rem; font-weight: 600; color: var(--texte-dim); text-transform: uppercase; letter-spacing: 0.8px; }
+        .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 0.75rem 1rem; background: var(--gris-moyen); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; color: var(--texte); font-family: 'Raleway', sans-serif; font-size: 0.95rem; transition: border-color 0.2s; }
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus { outline: none; border-color: var(--rouge); box-shadow: 0 0 0 3px rgba(192,57,43,0.15); }
+        .form-group textarea { min-height: 120px; resize: vertical; }
+        .form-group select option { background: var(--gris-fonce); }
+        .checkbox-group { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .checkbox-item { display: flex; align-items: center; gap: 0.5rem; background: var(--gris-moyen); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; padding: 0.5rem 0.9rem; cursor: pointer; transition: all 0.2s; }
+        .checkbox-item:hover { border-color: var(--rouge); }
+        .checkbox-item input[type="checkbox"] { width: auto; accent-color: var(--rouge); }
+        .checkbox-item label { margin: 0; text-transform: none; letter-spacing: 0; font-weight: 500; color: var(--texte); cursor: pointer; font-size: 0.9rem; }
+        .alert { padding: 1rem 1.2rem; border-radius: 8px; margin-bottom: 1.5rem; font-size: 0.9rem; }
+        .alert-success { background: rgba(46,204,113,0.1); border: 1px solid rgba(46,204,113,0.3); color: #2ecc71; }
+        .alert-error { background: rgba(231,76,60,0.1); border: 1px solid rgba(231,76,60,0.3); color: var(--rouge-vif); }
+        .table-wrap { overflow-x: auto; border-radius: 10px; border: 1px solid rgba(255,255,255,0.06); }
+        table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+        thead tr { background: var(--gris-fonce); border-bottom: 1px solid rgba(255,255,255,0.1); }
+        th { padding: 1rem 1.2rem; text-align: left; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; color: var(--texte-dim); }
+        tbody tr { background: var(--gris-card); border-bottom: 1px solid rgba(255,255,255,0.04); transition: background 0.15s; }
+        tbody tr:hover { background: var(--gris-moyen); }
+        td { padding: 0.9rem 1.2rem; color: var(--texte); }
+        .actions { display: flex; gap: 0.5rem; align-items: center; }
+        hr { border: none; height: 1px; background: rgba(255,255,255,0.07); margin: 2rem 0; }
+        footer { background: var(--gris-fonce); border-top: 1px solid rgba(255,255,255,0.07); padding: 1.5rem 2rem; text-align: center; color: var(--texte-dim); font-size: 0.8rem; }
+        .hero { text-align: center; padding: 4rem 1rem; }
+        .hero-title { font-family: 'Playfair Display', serif; font-size: 3.5rem; font-weight: 900; color: var(--blanc); margin-bottom: 1rem; }
+        .hero-subtitle { font-size: 1.1rem; color: var(--texte-dim); font-weight: 300; max-width: 550px; margin: 0 auto 2.5rem; line-height: 1.7; }
+        .hero-cta { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+        .info-strip { background: var(--gris-card); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; padding: 2rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+        .info-item { text-align: center; }
+        .info-item .info-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+        .info-item h4 { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--blanc); margin-bottom: 0.3rem; }
+        .info-item p { color: var(--texte-dim); font-size: 0.85rem; line-height: 1.5; }
+        .film-card { background: var(--gris-card); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; overflow: hidden; transition: transform 0.2s, box-shadow 0.2s; }
+        .film-card:hover { transform: translateY(-4px); box-shadow: 0 16px 50px rgba(0,0,0,0.5); }
+        .film-card-header { background: linear-gradient(135deg, #1a0a0a, var(--gris-moyen)); padding: 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; align-items: flex-start; gap: 1rem; }
+        .film-poster { width: 60px; height: 80px; background: linear-gradient(135deg, var(--rouge), #7a1010); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; flex-shrink: 0; }
+        .film-card-body { padding: 1.2rem 1.5rem; }
+        .film-title { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--blanc); margin-bottom: 0.3rem; }
+        .film-desc { color: var(--texte-dim); font-size: 0.88rem; line-height: 1.6; margin-bottom: 1rem; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+        .film-card-footer { padding: 1rem 1.5rem; border-top: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; justify-content: space-between; }
+        .rep-item { background: var(--gris-card); border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; padding: 1.4rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; transition: all 0.2s; margin-bottom: 0.8rem; }
+        .rep-item:hover { border-color: rgba(192,57,43,0.3); }
+        .rep-time { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--or-clair); font-weight: 700; min-width: 80px; }
+        .rep-info h4 { color: var(--blanc); font-size: 0.95rem; margin-bottom: 0.3rem; }
+        .rep-info p { color: var(--texte-dim); font-size: 0.85rem; }
+        .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+        .detail-section h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--or-clair); margin-bottom: 0.8rem; }
+        .detail-row { display: flex; justify-content: space-between; padding: 0.6rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.9rem; }
+        .detail-row .label { color: var(--texte-dim); }
+        .detail-row .value { color: var(--texte); font-weight: 600; }
+        .confirm-box { text-align: center; padding: 3rem 2rem; background: var(--gris-card); border-radius: 16px; border: 1px solid rgba(46,204,113,0.2); max-width: 500px; margin: 3rem auto; }
+        .confirm-icon { font-size: 4rem; margin-bottom: 1rem; }
+        .confirm-box h2 { font-family: 'Playfair Display', serif; font-size: 2rem; color: #2ecc71; margin-bottom: 0.8rem; }
+        .confirm-box p { color: var(--texte-dim); line-height: 1.6; margin-bottom: 1.5rem; }
+        .apropos-card { background: var(--gris-card); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; padding: 2.5rem; max-width: 750px; margin: 0 auto; }
+        .apropos-row { display: flex; justify-content: space-between; padding: 0.8rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); gap: 1rem; }
+        .apropos-row .key { color: var(--texte-dim); font-size: 0.88rem; text-transform: uppercase; letter-spacing: 0.5px; flex-shrink: 0; }
+        .apropos-row .val { color: var(--texte); font-weight: 600; text-align: right; }
+        .breadcrumb { display: flex; align-items: center; gap: 0.5rem; color: var(--texte-dim); font-size: 0.85rem; margin-bottom: 1.5rem; }
+        .breadcrumb a { color: var(--texte-dim); text-decoration: none; }
+        .breadcrumb a:hover { color: var(--rouge-vif); }
+        .breadcrumb .sep { color: rgba(255,255,255,0.2); }
+        .empty-state { text-align: center; padding: 4rem 2rem; color: var(--texte-dim); }
+        .empty-state .empty-icon { font-size: 3rem; margin-bottom: 1rem; }
+        .empty-state h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--texte); margin-bottom: 0.5rem; }
+        .admin-badge { background: rgba(212,160,23,0.1); border: 1px solid rgba(212,160,23,0.25); border-radius: 8px; padding: 0.6rem 1rem; margin-bottom: 2rem; display: inline-flex; align-items: center; gap: 0.6rem; color: var(--or); font-size: 0.85rem; font-weight: 600; }
+        @media (max-width: 700px) { .detail-grid { grid-template-columns: 1fr; } .hero-title { font-size: 2.2rem; } nav a { padding: 0.4rem 0.6rem; font-size: 0.75rem; } }
+    </style>
+</head>
+<body>
+<header>
+    <div class="header-inner">
+        <a href="/" class="logo">Ciné<span>Max</span></a>
+        <nav>
+            <a href="/">Accueil</a>
+            <a href="/films/">Films</a>
+            <a href="/a-propos/">À propos</a>
+
+        </nav>
+    </div>
+</header>
+<main>
+{% block content %}{% endblock %}
+</main>
+<footer>
+    <p>© 2026 CinéMax — Complexe cinématographique. Tous droits réservés. &nbsp;&nbsp; <a href="/admin-panel/" style="color:rgba(255,255,255,0.18); font-size:0.75rem; text-decoration:none; letter-spacing:1px;">Administration</a></p>
+</footer>
+</body>
+</html>

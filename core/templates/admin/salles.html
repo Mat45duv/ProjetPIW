@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}Admin — Salles{% endblock %}
+{% block content %}
+<div class="admin-badge">⚙ Mode administrateur</div>
+<div class="breadcrumb">
+    <a href="/admin-panel/">Admin</a>
+    <span class="sep">›</span>
+    <span class="current">Salles</span>
+</div>
+<h1 class="page-title">Gestion des salles</h1>
+<div class="title-accent"></div>
+
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-success">✅ {{ message }}</div>
+{% endfor %}
+{% endif %}
+
+<div style="margin-bottom:1.5rem;">
+    <a href="/admin-panel/salles/add/" class="btn btn-primary">+ Ajouter une salle</a>
+</div>
+
+{% if salles %}
+<div class="table-wrap">
+    <table>
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Nombre de places</th>
+                <th>Technologies</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for salle in salles %}
+            <tr>
+                <td style="font-weight:600; color:var(--blanc);">{{ salle.nom }}</td>
+                <td>{{ salle.nombre_places }} places</td>
+                <td>{% for tech in salle.technologies.all %}<span class="badge badge-tech">{{ tech.nom }}</span>{% endfor %}</td>
+                <td>
+                    <div class="actions">
+                        <a href="/admin-panel/salles/edit/{{ salle.id }}/" class="btn btn-secondary btn-sm">✏ Modifier</a>
+                        <a href="/admin-panel/salles/delete/{{ salle.id }}/" class="btn btn-danger btn-sm" onclick="return confirm('Supprimer cette salle ?')">🗑 Supprimer</a>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<div class="empty-state">
+    <div class="empty-icon">🏛️</div>
+    <h3>Aucune salle enregistrée</h3>
+    <a href="/admin-panel/salles/add/" class="btn btn-primary" style="margin-top:1rem;">+ Ajouter la première salle</a>
+</div>
+{% endif %}
+{% endblock %}

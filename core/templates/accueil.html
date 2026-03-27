@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Accueil{% endblock %}
+{% block content %}
+<div class="hero">
+    <h1 class="hero-title">🎬 Bienvenue chez CinéMax</h1>
+    <p class="hero-subtitle">Découvrez les derniers films à l'affiche, réservez vos places en ligne et vivez une expérience cinématographique inoubliable.</p>
+    <div class="hero-cta">
+        <a href="/films/" class="btn btn-primary">🎥 Voir les films à l'affiche</a>
+        <a href="/a-propos/" class="btn btn-secondary">📍 Informations du cinéma</a>
+    </div>
+</div>
+
+<div class="info-strip">
+    <div class="info-item">
+        <div class="info-icon">🏛️</div>
+        <h4>4 Salles de projection</h4>
+        <p>Des salles équipées des dernières technologies pour une expérience optimale.</p>
+    </div>
+    <div class="info-item">
+        <div class="info-icon">🎭</div>
+        <h4>Numérique · 3D · IMAX · 4DX</h4>
+        <p>Choisissez la technologie qui correspond à vos attentes.</p>
+    </div>
+    <div class="info-item">
+        <div class="info-icon">🎫</div>
+        <h4>Réservation en ligne</h4>
+        <p>Réservez vos places facilement depuis chez vous, 24h/24.</p>
+    </div>
+    <div class="info-item">
+        <div class="info-icon">🕐</div>
+        <h4>Horaires variés</h4>
+        <p>Séances matinales, après-midi et en soirée pour tous les goûts.</p>
+    </div>
+</div>
+{% endblock %}

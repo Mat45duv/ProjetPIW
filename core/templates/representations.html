@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Représentations{% endblock %}
+{% block content %}
+<div class="breadcrumb">
+    <a href="/films/">Films</a>
+    <span class="sep">›</span>
+    <span class="current">Représentations</span>
+</div>
+
+{% if reps %}
+<h1 class="page-title">{{ reps.0.film.titre }}</h1>
+<p class="page-subtitle">Choisissez votre séance</p>
+<div class="title-accent"></div>
+
+{% for rep in reps %}
+<div class="rep-item">
+    <div class="rep-time">{{ rep.date_heure|date:"H:i" }}</div>
+    <div class="rep-info">
+        <h4>{{ rep.date_heure|date:"l d F Y" }}</h4>
+        <p>Salle : {{ rep.salle.nom }} —
+            {% for tech in rep.salle.technologies.all %}{{ tech.nom }}{% if not forloop.last %}, {% endif %}{% endfor %}
+        </p>
+    </div>
+    {% if rep.places_restantes > 0 %}
+        <span class="badge badge-places">{{ rep.places_restantes }} place{{ rep.places_restantes|pluralize }}</span>
+        <a href="/representation/{{ rep.id }}/" class="btn btn-primary btn-sm">Choisir</a>
+    {% else %}
+        <span class="badge badge-full">Complet</span>
+    {% endif %}
+</div>
+{% endfor %}
+
+{% else %}
+<div class="empty-state">
+    <div class="empty-icon">📅</div>
+    <h3>Aucune représentation disponible</h3>
+    <p>Ce film n'a pas encore de séances programmées.</p>
+    <a href="/films/" class="btn btn-secondary" style="margin-top:1rem;">← Retour aux films</a>
+</div>
+{% endif %}
+{% endblock %}

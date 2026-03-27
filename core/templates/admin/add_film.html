@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %}Admin — Ajouter un film{% endblock %}
+{% block content %}
+<div class="admin-badge">⚙ Mode administrateur</div>
+<div class="breadcrumb">
+    <a href="/admin-panel/">Admin</a>
+    <span class="sep">›</span>
+    <a href="/admin-panel/films/">Films</a>
+    <span class="sep">›</span>
+    <span class="current">Ajouter</span>
+</div>
+<h1 class="page-title">Ajouter un film</h1>
+<div class="title-accent"></div>
+
+<div class="form-card">
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="titre">Titre du film</label>
+            <input type="text" name="titre" id="titre" placeholder="Ex: Dune: Partie 3" required>
+        </div>
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea name="description" id="description" placeholder="Synopsis du film..." required></textarea>
+        </div>
+        <div class="form-group">
+            <label for="categorie">Catégorie</label>
+            <select name="categorie" id="categorie" required>
+                <option value="">-- Choisir une catégorie --</option>
+                <option value="Enfants">Enfants</option>
+                <option value="Famille">Famille</option>
+                <option value="Action">Action</option>
+                <option value="Comédie">Comédie</option>
+                <option value="Drame">Drame</option>
+                <option value="Horreur">Horreur</option>
+                <option value="Science-fiction">Science-fiction</option>
+                <option value="Aventure">Aventure</option>
+                <option value="Animation">Animation</option>
+                <option value="Thriller">Thriller</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Technologies de projection</label>
+            <div class="checkbox-group">
+                {% for tech in technologies %}
+                <div class="checkbox-item">
+                    <input type="checkbox" name="technologies" value="{{ tech.id }}" id="tech_{{ tech.id }}">
+                    <label for="tech_{{ tech.id }}">{{ tech.nom }}</label>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div style="display:flex; gap:1rem; margin-top:1.5rem;">
+            <button type="submit" class="btn btn-primary">✅ Créer le film</button>
+            <a href="/admin-panel/films/" class="btn btn-secondary">Annuler</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

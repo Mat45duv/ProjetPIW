@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Réservation confirmée{% endblock %}
+{% block content %}
+<div class="confirm-box">
+    <div class="confirm-icon">✅</div>
+    <h2>Réservation confirmée !</h2>
+    <p>Votre billet a été réservé avec succès. Présentez cette confirmation à l'entrée de la salle.</p>
+    <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
+        <a href="/films/" class="btn btn-primary">🎬 Voir d'autres films</a>
+        <a href="/" class="btn btn-secondary">← Accueil</a>
+    </div>
+</div>
+{% endblock %}

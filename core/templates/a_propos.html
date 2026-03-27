@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}À propos{% endblock %}
+{% block content %}
+<h1 class="page-title">À propos de CinéMax</h1>
+<p class="page-subtitle">Informations du complexe cinématographique</p>
+<div class="title-accent"></div>
+
+<div style="display:grid; grid-template-columns:1fr 1fr; gap:2rem; margin-bottom:2rem;">
+    <div class="card">
+        <h3 style="font-family:'Playfair Display',serif; color:var(--or-clair); margin-bottom:1rem;">📍 Nous contacter</h3>
+        <div class="detail-row"><span class="label">Adresse</span><span class="value">1234, rue du Cinéma, Montréal, QC</span></div>
+        <div class="detail-row"><span class="label">Téléphone</span><span class="value">+1 (514) 555-0199</span></div>
+        <div class="detail-row"><span class="label">Courriel</span><span class="value">info@cinemax.ca</span></div>
+        <div class="detail-row" style="border:none;"><span class="label">Site web</span><span class="value">www.cinemax.ca</span></div>
+    </div>
+    <div class="card">
+        <h3 style="font-family:'Playfair Display',serif; color:var(--or-clair); margin-bottom:1rem;">🕐 Heures d'ouverture</h3>
+        <div class="detail-row"><span class="label">Lundi – Jeudi</span><span class="value">11h00 – 23h00</span></div>
+        <div class="detail-row"><span class="label">Vendredi</span><span class="value">11h00 – 00h30</span></div>
+        <div class="detail-row"><span class="label">Samedi</span><span class="value">10h00 – 00h30</span></div>
+        <div class="detail-row" style="border:none;"><span class="label">Dimanche</span><span class="value">10h00 – 22h00</span></div>
+    </div>
+</div>
+
+<div class="apropos-card">
+    <h2>👨‍💻 À propos du développeur</h2>
+    <div class="apropos-row"><span class="key">Nom du développeur</span><span class="val">Mathis et Camille</span></div>
+    <div class="apropos-row"><span class="key">Numéro d'étudiant</span><span class="val">123456</span></div>
+    <div class="apropos-row"><span class="key">Cours</span><span class="val">Projet d'intégration WEB</span></div>
+    <div class="apropos-row"><span class="key">Travail demandé</span><span class="val">Travail pratique 2 — Application WEB (Cinéma)</span></div>
+    <div class="apropos-row"><span class="key">Date de remise</span><span class="val">2026-04-10</span></div>
+    <div class="apropos-row" style="border:none;"><span class="key">Établissement</span><span class="val">Cégep La Pocatière</span></div>
+</div>
+{% endblock %}

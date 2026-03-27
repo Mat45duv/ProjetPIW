@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}Admin — Représentations{% endblock %}
+{% block content %}
+<div class="admin-badge">⚙ Mode administrateur</div>
+<div class="breadcrumb">
+    <a href="/admin-panel/">Admin</a>
+    <span class="sep">›</span>
+    <span class="current">Représentations</span>
+</div>
+<h1 class="page-title">Gestion des représentations</h1>
+<div class="title-accent"></div>
+
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-success">✅ {{ message }}</div>
+{% endfor %}
+{% endif %}
+
+<div style="margin-bottom:1.5rem;">
+    <a href="/admin-panel/representations/add/" class="btn btn-primary">+ Ajouter une représentation</a>
+</div>
+
+{% if reps %}
+<div class="table-wrap">
+    <table>
+        <thead>
+            <tr>
+                <th>Film</th>
+                <th>Salle</th>
+                <th>Date & Heure</th>
+                <th>Billets vendus</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for rep in reps %}
+            <tr>
+                <td style="font-weight:600; color:var(--blanc);">{{ rep.film.titre }}</td>
+                <td>{{ rep.salle.nom }}</td>
+                <td>{{ rep.date_heure|date:"d/m/Y à H:i" }}</td>
+                <td>
+                    <span class="badge {% if rep.places_restantes > 0 %}badge-places{% else %}badge-full{% endif %}">
+                        {{ rep.billets_vendus }} / {{ rep.salle.nombre_places }}
+                    </span>
+                </td>
+                <td>
+                    <div class="actions">
+                        <a href="/admin-panel/representations/edit/{{ rep.id }}/" class="btn btn-secondary btn-sm">✏ Modifier</a>
+                        <a href="/admin-panel/representations/delete/{{ rep.id }}/" class="btn btn-danger btn-sm" onclick="return confirm('Supprimer cette représentation ?')">🗑 Supprimer</a>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<div class="empty-state">
+    <div class="empty-icon">📅</div>
+    <h3>Aucune représentation programmée</h3>
+    <a href="/admin-panel/representations/add/" class="btn btn-primary" style="margin-top:1rem;">+ Programmer la première séance</a>
+</div>
+{% endif %}
+{% endblock %}

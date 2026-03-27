@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}Admin — Ajouter une représentation{% endblock %}
+{% block content %}
+<div class="admin-badge">⚙ Mode administrateur</div>
+<div class="breadcrumb">
+    <a href="/admin-panel/">Admin</a>
+    <span class="sep">›</span>
+    <a href="/admin-panel/representations/">Représentations</a>
+    <span class="sep">›</span>
+    <span class="current">Ajouter</span>
+</div>
+<h1 class="page-title">Programmer une représentation</h1>
+<div class="title-accent"></div>
+
+{% if error %}
+<div class="alert alert-error">⚠️ {{ error }}</div>
+{% endif %}
+
+<div class="form-card">
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="film_id">Film</label>
+            <select name="film_id" id="film_id" required>
+                <option value="">-- Choisir un film --</option>
+                {% for film in films %}
+                <option value="{{ film.id }}">{{ film.titre }} ({{ film.categorie }})</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="salle_id">Salle</label>
+            <select name="salle_id" id="salle_id" required>
+                <option value="">-- Choisir une salle --</option>
+                {% for salle in salles %}
+                <option value="{{ salle.id }}">{{ salle.nom }} — {{ salle.nombre_places }} places</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="date_heure">Date et heure</label>
+            <input type="datetime-local" name="date_heure" id="date_heure" required>
+        </div>
+        <div style="background:rgba(212,160,23,0.08); border:1px solid rgba(212,160,23,0.2); border-radius:8px; padding:1rem; margin-bottom:1.5rem; font-size:0.88rem; color:var(--or);">
+            ℹ️ Note : Un délai minimum de 30 minutes entre représentations dans la même salle est requis.
+            La technologie de la salle doit être compatible avec celle du film.
+        </div>
+        <div style="display:flex; gap:1rem;">
+            <button type="submit" class="btn btn-primary">✅ Programmer</button>
+            <a href="/admin-panel/representations/" class="btn btn-secondary">Annuler</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

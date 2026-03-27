@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Admin — Modifier une représentation{% endblock %}
+{% block content %}
+<div class="admin-badge">⚙ Mode administrateur</div>
+<div class="breadcrumb">
+    <a href="/admin-panel/">Admin</a>
+    <span class="sep">›</span>
+    <a href="/admin-panel/representations/">Représentations</a>
+    <span class="sep">›</span>
+    <span class="current">Modifier</span>
+</div>
+<h1 class="page-title">Modifier la représentation</h1>
+<div class="title-accent"></div>
+
+{% if error %}
+<div class="alert alert-error">⚠️ {{ error }}</div>
+{% endif %}
+
+<div class="form-card">
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="film_id">Film</label>
+            <select name="film_id" id="film_id" required>
+                {% for film in films %}
+                <option value="{{ film.id }}" {% if film.id == rep.film.id %}selected{% endif %}>{{ film.titre }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="salle_id">Salle</label>
+            <select name="salle_id" id="salle_id" required>
+                {% for salle in salles %}
+                <option value="{{ salle.id }}" {% if salle.id == rep.salle.id %}selected{% endif %}>{{ salle.nom }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="date_heure">Date et heure</label>
+            <input type="datetime-local" name="date_heure" id="date_heure" value="{{ rep.date_heure|date:'Y-m-d' }}T{{ rep.date_heure|date:'H:i' }}" required>
+        </div>
+        <div style="display:flex; gap:1rem; margin-top:1.5rem;">
+            <button type="submit" class="btn btn-primary">💾 Sauvegarder</button>
+            <a href="/admin-panel/representations/" class="btn btn-secondary">Annuler</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

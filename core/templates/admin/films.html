@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}Admin — Films{% endblock %}
+{% block content %}
+<div class="admin-badge">⚙ Mode administrateur</div>
+<div class="breadcrumb">
+    <a href="/admin-panel/">Admin</a>
+    <span class="sep">›</span>
+    <span class="current">Films</span>
+</div>
+<h1 class="page-title">Gestion des films</h1>
+<div class="title-accent"></div>
+
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-success">✅ {{ message }}</div>
+{% endfor %}
+{% endif %}
+
+<div style="margin-bottom:1.5rem;">
+    <a href="/admin-panel/films/add/" class="btn btn-primary">+ Ajouter un film</a>
+</div>
+
+{% if films %}
+<div class="table-wrap">
+    <table>
+        <thead>
+            <tr>
+                <th>Titre</th>
+                <th>Catégorie</th>
+                <th>Technologies</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for film in films %}
+            <tr>
+                <td style="font-weight:600; color:var(--blanc);">{{ film.titre }}</td>
+                <td><span class="badge badge-cat">{{ film.categorie }}</span></td>
+                <td>{% for tech in film.technologies.all %}<span class="badge badge-tech">{{ tech.nom }}</span>{% endfor %}</td>
+                <td>
+                    <div class="actions">
+                        <a href="/admin-panel/films/edit/{{ film.id }}/" class="btn btn-secondary btn-sm">✏ Modifier</a>
+                        <a href="/admin-panel/films/delete/{{ film.id }}/" class="btn btn-danger btn-sm" onclick="return confirm('Supprimer ce film ?')">🗑 Supprimer</a>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<div class="empty-state">
+    <div class="empty-icon">🎬</div>
+    <h3>Aucun film enregistré</h3>
+    <a href="/admin-panel/films/add/" class="btn btn-primary" style="margin-top:1rem;">+ Ajouter le premier film</a>
+</div>
+{% endif %}
+{% endblock %}

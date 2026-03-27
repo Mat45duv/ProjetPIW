@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Films à l'affiche{% endblock %}
+{% block content %}
+<h1 class="page-title">Films à l'affiche</h1>
+<p class="page-subtitle">Choisissez votre film et réservez vos places</p>
+<div class="title-accent"></div>
+
+{% if films %}
+<div class="cards-grid">
+    {% for film in films %}
+    <div class="film-card">
+        <div class="film-card-header">
+            <div class="film-poster">🎬</div>
+            <div>
+                <h3 class="film-title">{{ film.titre }}</h3>
+                <span class="badge badge-cat">{{ film.categorie }}</span>
+            </div>
+        </div>
+        <div class="film-card-body">
+            <p class="film-desc">{{ film.description }}</p>
+            <div>
+                {% for tech in film.technologies.all %}
+                    <span class="badge badge-tech">{{ tech.nom }}</span>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="film-card-footer">
+            <a href="/film/{{ film.id }}/" class="btn btn-primary btn-sm">🎟 Voir les représentations</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<div class="empty-state">
+    <div class="empty-icon">🎬</div>
+    <h3>Aucun film disponible pour le moment</h3>
+    <p>Revenez bientôt pour découvrir notre programmation.</p>
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Panneau administrateur{% endblock %}
+{% block content %}
+<div class="admin-badge">⚙ Mode administrateur</div>
+<h1 class="page-title">Panneau d'administration</h1>
+<p class="page-subtitle">Gérez les films, les salles et les représentations</p>
+<div class="title-accent"></div>
+
+<div class="cards-grid">
+    <a href="/admin-panel/films/" style="text-decoration:none;">
+        <div class="card" style="cursor:pointer; text-align:center; padding:2.5rem;">
+            <div style="font-size:3rem; margin-bottom:1rem;">🎬</div>
+            <h3 style="font-family:'Playfair Display',serif; font-size:1.3rem; color:var(--blanc); margin-bottom:0.5rem;">Gérer les films</h3>
+            <p style="color:var(--texte-dim); font-size:0.9rem;">Ajouter, modifier ou supprimer des films</p>
+        </div>
+    </a>
+    <a href="/admin-panel/salles/" style="text-decoration:none;">
+        <div class="card" style="cursor:pointer; text-align:center; padding:2.5rem;">
+            <div style="font-size:3rem; margin-bottom:1rem;">🏛️</div>
+            <h3 style="font-family:'Playfair Display',serif; font-size:1.3rem; color:var(--blanc); margin-bottom:0.5rem;">Gérer les salles</h3>
+            <p style="color:var(--texte-dim); font-size:0.9rem;">Configurer les salles et leurs technologies</p>
+        </div>
+    </a>
+    <a href="/admin-panel/representations/" style="text-decoration:none;">
+        <div class="card" style="cursor:pointer; text-align:center; padding:2.5rem;">
+            <div style="font-size:3rem; margin-bottom:1rem;">📅</div>
+            <h3 style="font-family:'Playfair Display',serif; font-size:1.3rem; color:var(--blanc); margin-bottom:0.5rem;">Gérer les représentations</h3>
+            <p style="color:var(--texte-dim); font-size:0.9rem;">Programmer et gérer les séances</p>
+        </div>
+    </a>
+</div>
+{% endblock %}
